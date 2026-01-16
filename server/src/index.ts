@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import noteRoutes from './routes/noteRoutes';
 
 dotenv.config();
 
@@ -20,6 +21,9 @@ mongoose.connect(MONGO_URI)
 app.get('/', (req, res) => {
   res.send('Dubai Pulse API is running...');
 });
+
+// Notes API
+app.use('/api/notes', noteRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
