@@ -1,10 +1,11 @@
 import express from 'express';
-import { getNotes, createNote } from '../controllers/noteController';
+import { getNotes, getNoteById, addNote, deleteNote } from '../controllers/noteController';
 
 const router = express.Router();
 
-// Define the endpoints
-router.get('/', getNotes);   // GET /api/notes
-router.post('/', createNote); // POST /api/notes
+router.get('/', getNotes);
+router.get('/:id', getNoteById);
+router.post('/', addNote);
+router.delete('/:id', deleteNote);
 
 export default router;
