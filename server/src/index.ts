@@ -2,7 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+
+// routes
 import noteRoutes from './routes/noteRoutes';
+import dashboardRoutes from './routes/dashboardRoutes';
+import eventRoutes from './routes/eventRoutes';
+import currencyRoutes from './routes/currencyRoutes'; 
 
 dotenv.config();
 
@@ -13,18 +18,15 @@ const MONGO_URI = process.env.MONGO_URI || '';
 app.use(cors());
 app.use(express.json());
 
-// The Database Connection
+
+app.use('/api/notes', noteRoutes);         
+app.use('/api/dashboard', dashboardRoutes); 
+app.use('/api/trending', eventRoutes);      
+app.use('/api/currency', currencyRoutes);   
+
 mongoose.connect(MONGO_URI)
-  .then(() => console.log('✅ Connected to Dubai Pulse Database!'))
-  .catch((err) => console.error('❌ Database connection error:', err));
-
-app.get('/', (req, res) => {
-  res.send('Dubai Pulse API is running...');
-});
-
-// Notes API
-app.use('/api/notes', noteRoutes);
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+  .then(() => {
+    console.log('✅ Connected to Dubai Pulse Database');
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+  })
+  .catch((err) => console.error('❌ DB Error:', err));
