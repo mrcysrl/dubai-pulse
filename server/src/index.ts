@@ -7,7 +7,8 @@ import mongoose from 'mongoose';
 import noteRoutes from './routes/noteRoutes';
 import dashboardRoutes from './routes/dashboardRoutes';
 import eventRoutes from './routes/eventRoutes';
-import currencyRoutes from './routes/currencyRoutes'; 
+import currencyRoutes from './routes/currencyRoutes';
+import metroRoutes from './routes/metroRoutes';
 
 dotenv.config();
 
@@ -19,10 +20,11 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use('/api/notes', noteRoutes);         
-app.use('/api/dashboard', dashboardRoutes); 
-app.use('/api/trending', eventRoutes);      
-app.use('/api/currency', currencyRoutes);   
+app.use('/api/notes', noteRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/trending', eventRoutes);
+app.use('/api/currency', currencyRoutes);
+app.use('/api/metro', metroRoutes);
 
 mongoose.connect(MONGO_URI)
   .then(() => {
